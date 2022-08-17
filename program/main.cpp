@@ -12,7 +12,6 @@ int main(int argc, char const *argv[]) {
     Pila *pila = new Pila();
     int opcion = 0;
 
-
     do {
 
         try {

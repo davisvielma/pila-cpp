@@ -103,3 +103,11 @@ Pila* Pila::order(int opcion) {
         return pila;
     }
 }
+
+Pila::~Pila() {
+    while(!this->empty()) {
+        this->remove();
+    }
+
+    delete top;
+}

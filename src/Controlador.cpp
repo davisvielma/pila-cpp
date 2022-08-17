@@ -3,8 +3,6 @@
 
 using namespace std;
 
-#define BLACK "\x1B[30m"
-#define YELLOW "\x1B[33m"
 #define GREEN "\x1B[32m"
 
 void Controlador::menu() const {
