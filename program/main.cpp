@@ -61,5 +61,7 @@ int main(int argc, char const *argv[]) {
 
     } while (opcion != 9);
 
+    delete pila;
+
     return 0;
 }
