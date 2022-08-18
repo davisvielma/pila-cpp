@@ -38,15 +38,15 @@ int main(int argc, char const *argv[]) {
                     break;
 
                 case 5:
-                    controlador.inversa(pila);
+                    controlador.inversaPila(pila);
                     break;
 
                 case 6:
-                    controlador.ordenar(pila, 1);
+                    controlador.ordenarPila(pila, static_cast<int>(Pila::Orden::ASCENDENTE));
                     break;
 
                 case 7:
-                    controlador.ordenar(pila, 2);
+                    controlador.ordenarPila(pila, static_cast<int>(Pila::Orden::DESCENDENTE));
                     break;
 
                 case 8:
@@ -55,8 +55,7 @@ int main(int argc, char const *argv[]) {
             }
 
         } catch (int e) {
-            if (e == -1) cout << RED "\nERROR!! Opción invalida." << endl;
-            else if (e == -2) cout << RED "\nERROR!! Pila vaciá." << endl;
+            cout << RED "\nERROR!! Opción invalida." << endl;
         }
 
     } while (opcion != 9);

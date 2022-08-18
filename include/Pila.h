@@ -5,20 +5,27 @@
 
 class Pila {
     private:
-        Nodo *top;
+        Nodo *cima;
+        int tamano;
+        void setTamano(int);      
     
     public:
         explicit Pila();
         ~Pila();
 
-        inline int getDato() const { return this->top->next->dato; }
-        void add(int);
-        int remove();
-        bool empty() const;
-        void print() const;
-        int size() const;
-        Pila* reverse();
-        Pila* order(int);
+        enum class Orden {
+            ASCENDENTE,
+            DESCENDENTE
+        };
+
+        inline int getDato() const { return this->cima->siguiente->dato; }
+        inline int getTamano() const { return this->tamano; }
+        void agregar(int);
+        int remover();
+        bool vacia() const;
+        void imprimir() const;
+        Pila* inversa();
+        Pila* ordenar(int);
 };
 
 #endif //PILA_H

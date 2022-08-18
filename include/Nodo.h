@@ -3,7 +3,7 @@
 
 class Nodo {
     private:
-        Nodo *next;
+        Nodo *siguiente;
         int dato;
 
     friend class Pila;

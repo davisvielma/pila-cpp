@@ -6,98 +6,84 @@
 using namespace std;
 
 Pila::Pila() {
-    this->top = new Nodo();
+    this->cima = new Nodo();
+    this->tamano = 0;
 }
 
-bool Pila::empty() const {
-    return ((!this->top->next) ? true : false);
+bool Pila::vacia() const {
+    return ((!this->cima->siguiente) ? true : false);
 }
 
-void Pila::add(int dato) {
+void Pila::setTamano(int n) {
+    this->tamano += n;
+}
+
+void Pila::agregar(int dato) {
     Nodo *nodo = new Nodo();
     nodo->dato = dato;
-    nodo->next = this->top->next;
+    nodo->siguiente = this->cima->siguiente;
 
-    this->top->next = nodo;
-
-    return;
+    this->cima->siguiente = nodo;
+    this->setTamano(1);
 }
 
-int Pila::remove() {
+int Pila::remover() {
     int dato = 0;
 
-    if(!this->empty()) {
-        Nodo *nodo = this->top->next->next;
-        dato = this->top->next->dato;
-        delete this->top->next;
-        this->top->next = nodo;
+    if(!this->vacia()) {
+        Nodo *nodo = this->cima->siguiente->siguiente;
+        dato = this->cima->siguiente->dato;
+        delete this->cima->siguiente;
+        this->cima->siguiente = nodo;
+        this->setTamano(-1);
     }  
 
     return dato;
 }
 
-void Pila::print() const {
-    if(!this->empty()) {
-        Nodo *nodo = this->top->next;
+void Pila::imprimir() const {
+    if(!this->vacia()) {
+        Nodo *nodo = this->cima->siguiente;
 
         while(nodo != NULL) {
             cout << nodo->dato << " | ";
-            nodo = nodo->next;
+            nodo = nodo->siguiente;
         }
 
         cout << endl;
     }
-
-    return;
 }
 
-int Pila::size() const {
-    int tamano = 0;
-
-    if (this->empty()) {
-        return tamano;
-    }
-
-    Nodo *nodo = this->top->next;
-
-     while(nodo != NULL) {
-        tamano++;
-        nodo = nodo->next;
-    }
-
-    return tamano;
-}
-
-Pila* Pila::reverse() {
-    if(!this->empty()) {
-        Nodo *nodo = this->top->next;
+Pila* Pila::inversa() {
+    if(!this->vacia()) {
+        Nodo *nodo = this->cima->siguiente;
         Pila *pila = new Pila();
 
         while(nodo != NULL) {
-            pila->add(nodo->dato);
-            nodo = nodo->next;
+            pila->agregar(nodo->dato);
+            nodo = nodo->siguiente;
         }
 
         return pila;
     } 
 }
 
-Pila* Pila::order(int opcion) {
-    if(!this->empty()) {
-        Nodo *nodo = this->top->next;
+Pila* Pila::ordenar(int opcion) {
+    if(!this->vacia()) {
+        Nodo *nodo = this->cima->siguiente;
         Pila *pila = new Pila();
         vector<int> v;
 
         while(nodo != NULL) {
             v.push_back(nodo->dato);
-            nodo = nodo->next;
+            nodo = nodo->siguiente;
         }
 
-        if (opcion == 1) sort(v.begin(), v.end());
+        if (opcion == static_cast<int>(this->Orden::ASCENDENTE)) sort(v.begin(), v.end());
         else sort(v.rbegin(), v.rend());
 
         for (int elemento: v) {
-            pila->add(elemento);
+            pila->agregar(elemento);
         }
 
         return pila;
@@ -105,9 +91,9 @@ Pila* Pila::order(int opcion) {
 }
 
 Pila::~Pila() {
-    while(!this->empty()) {
-        this->remove();
+    while(!this->vacia()) {
+        this->remover();
     }
 
-    delete top;
+    delete cima;
 }

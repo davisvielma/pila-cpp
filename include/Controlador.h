@@ -4,6 +4,8 @@
 #include "Pila.h"
 
 class Controlador {
+	private:
+		void pilaVacia() const; 
 	public:
 		explicit Controlador() { }
 		~Controlador() { }
@@ -14,8 +16,8 @@ class Controlador {
 		void imprimirDatos(Pila *) const;
 		void verTamano(Pila *) const;
 		void eliminarDato(Pila *);
-		void inversa(Pila *);
-		void ordenar(Pila *, int);
+		void inversaPila(Pila *);
+		void ordenarPila(Pila *, int);
 		void verUltimoDato(Pila *) const;
 	
 };

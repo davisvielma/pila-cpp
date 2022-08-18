@@ -4,12 +4,13 @@
 using namespace std;
 
 #define GREEN "\x1B[32m"
+#define YELLOW "\x1B[33m"
 
 void Controlador::menu() const {
 	cout << GREEN "\n\t\tPractica de pilas." << endl;
 	cout << "\n1) Agregar un numero a la pila." << endl;
-	cout << "2) Ver cuentos elementos tiene la pila." << endl;
-	cout << "3) Ver ultimo elementos agregado a la pila." << endl;
+	cout << "2) Ver cuantos elementos tiene la pila." << endl;
+	cout << "3) Ver ultimo elemento agregado a la pila." << endl;
 	cout << "4) Imprimir valores de la pila." << endl;
 	cout << "5) Obtener inversa de la pila." << endl;
 	cout << "6) Obtener pila de orden ascendente." << endl;
@@ -17,69 +18,75 @@ void Controlador::menu() const {
 	cout << "8) Eliminar un numero de la pila." << endl;
 	cout << "9) Salir." << endl;
 	cout << "*Elige una opción: ";
+}
 
-	return;
+void Controlador::pilaVacia() const {
+	cout << YELLOW "\nPila vaciá." << endl;
 }
 
 int Controlador::pedirDato() {
 	int dato = 0;
 
-	cout << "\nIngrese un numero: ";
+	cout << YELLOW "\nIngrese un numero: ";
 	cin >> dato;
 
 	return dato;
 }
 
 void Controlador::agregarDato(Pila *p, int dato) {
-	p->add(dato);
-
-	return;
+	p->agregar(dato);
 }
 
 void Controlador::imprimirDatos(Pila *p) const {
-	if(p->empty()) throw -2;
+	if(p->vacia()) {
+		this->pilaVacia();
+		return;
+	}
 
-	cout << endl;
-	p->print();
-
-	return;
+	cout << YELLOW "" << endl;
+	p->imprimir();
 }
 
 void Controlador::verTamano(Pila *p) const {
-	cout << "\nNumero de elementos de la pila: " << p->size() << endl;
-
-	return;
+	cout << YELLOW "\nNumero de elementos de la pila: " << p->getTamano() << endl;
 }
 
 void Controlador::eliminarDato(Pila *p) {
-	if (p->empty()) throw -2;
+	if (p->vacia()) {
+		this->pilaVacia();
+		return;
+	}
 
-	cout << "\nSe elimino el numero: " << p->remove() << endl;
-
-	return;
+	cout << YELLOW "\nSe elimino el numero: " << p->remover() << endl;
 }
 
-void Controlador::inversa(Pila *p) {
-	if (p->empty()) throw -2;
+void Controlador::inversaPila(Pila *p) {
+	if (p->vacia()) {
+		this->pilaVacia();
+		return;
+	}
 
-	Pila *aux = p->reverse();
+	Pila *aux = p->inversa();
 	this->imprimirDatos(aux);
-
-	return;
 }
 
-void Controlador::ordenar(Pila *p, int opcion) {
-	if (p->empty()) throw -2;
-	if (opcion < 1 || opcion > 2) throw -1;
+void Controlador::ordenarPila(Pila *p, int opcion) {
+	if (p->vacia()) {
+		this->pilaVacia();
+		return;
+	}
 
-	Pila *aux = p->order(opcion);
+	if (opcion !=  static_cast<int>(Pila::Orden::ASCENDENTE) && opcion != static_cast<int>(Pila::Orden::DESCENDENTE)) throw -1;
+
+	Pila *aux = p->ordenar(opcion);
 	this->imprimirDatos(aux);
-
-	return;
 }
 
 void Controlador::verUltimoDato(Pila *p) const {
-	if (p->empty()) throw -2;
+	if (p->vacia()) {
+		this->pilaVacia();
+		return;
+	}
 
-	cout << "\nUltimo elemento en la pila: " << p->getDato() << endl;
+	cout << YELLOW "\nUltimo elemento en la pila: " << p->getDato() << endl;
 }
